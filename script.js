@@ -299,5 +299,27 @@ function updateCharts() {
     });
 }
 
+// Navigation Tab Logic
+const navItems = document.querySelectorAll('.nav-item');
+const mainContent = document.querySelector('.main-content');
+
+navItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Update active state
+        navItems.forEach(nav => nav.classList.remove('active'));
+        item.classList.add('active');
+        
+        // Switch view
+        const view = item.getAttribute('data-view');
+        if (view === 'transactions') {
+            mainContent.classList.add('view-transactions');
+        } else {
+            mainContent.classList.remove('view-transactions');
+        }
+    });
+});
+
 // Start App
 init();
