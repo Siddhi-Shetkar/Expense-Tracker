@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker | Finance Analytics</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons (Sleek modern icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Navigation -->
+        <aside class="sidebar glass-panel">
+            <div class="brand">
+                <i class="ph-fill ph-wallet"></i>
+                <h1>Expenso</h1>
+            </div>
+            
+            <div class="budget-section">
+                <h3>Monthly Budget</h3>
+                <div class="budget-input-group">
+                    <span class="currency">₹</span>
+                    <input type="number" id="budgetInput" placeholder="Set Limit">
+                    <button id="setBudgetBtn" class="btn-primary"><i class="ph ph-check"></i></button>
+                </div>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#" class="active"><i class="ph ph-squares-four"></i> Dashboard</a>
+                <a href="#transactions"><i class="ph ph-list-dashes"></i> Transactions</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- Summary Cards -->
+            <section class="summary-cards">
+                <div class="card glass-panel gradient-border">
+                    <div class="card-icon"><i class="ph ph-trend-down"></i></div>
+                    <div class="card-info">
+                        <p>Total Spent</p>
+                        <h2 id="totalSpent">₹0.00</h2>
+                    </div>
+                </div>
+                <div class="card glass-panel">
+                    <div class="card-icon"><i class="ph ph-target"></i></div>
+                    <div class="card-info">
+                        <p>Budget Limit</p>
+                        <h2 id="budgetDisplay">₹0.00</h2>
+                    </div>
+                </div>
+                <div class="card glass-panel" id="remainingCard">
+                    <div class="card-icon"><i class="ph ph-wallet"></i></div>
+                    <div class="card-info">
+                        <p>Remaining</p>
+                        <h2 id="remainingBudget">₹0.00</h2>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Dashboard Area -->
+            <div class="dashboard-grid">
+                <!-- Left Column: Add Expense & Charts -->
+                <div class="left-col">
+                    <!-- Add Expense Form -->
+                    <section class="expense-form-section glass-panel">
+                        <h2>Add New Expense</h2>
+                        <form id="expenseForm">
+                            <input type="hidden" id="expenseId">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="expenseTitle">Title</label>
+                                    <input type="text" id="expenseTitle" placeholder="e.g. Groceries" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="expenseAmount">Amount (₹)</label>
+                                    <input type="number" id="expenseAmount" step="0.01" placeholder="0.00" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="expenseDate">Date</label>
+                                    <input type="date" id="expenseDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="expenseCategory">Category</label>
+                                    <select id="expenseCategory" required>
+                                        <option value="" disabled selected>Select...</option>
+                                        <option value="Food">Food & Dining</option>
+                                        <option value="Transport">Transportation</option>
+                                        <option value="Shopping">Shopping</option>
+                                        <option value="Entertainment">Entertainment</option>
+                                        <option value="Bills">Bills & Utilities</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary w-100" id="submitBtn">Add Expense</button>
+                        </form>
+                    </section>
+                    
+                    <!-- Charts -->
+                    <section class="charts-section glass-panel">
+                        <h2>Spending by Category</h2>
+                        <div class="chart-container">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </section>
+                </div>
+                
+                <!-- Right Column: Recent Transactions -->
+                <div class="right-col">
+                    <section class="transactions-section glass-panel" id="transactions">
+                        <div class="section-header">
+                            <h2>Recent Transactions</h2>
+                        </div>
+                        <div class="transactions-list" id="expenseList">
+                            <!-- Transactions will be rendered here dynamically -->
+                            <div class="empty-state">No expenses recorded yet.</div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
